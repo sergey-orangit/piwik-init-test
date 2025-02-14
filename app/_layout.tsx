@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import PiwikProSdk from "@piwikpro/react-native-piwik-pro-sdk";
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -16,6 +17,19 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+  const piwikUrl = process.env.PIWIK_URL as string;
+  const piwikKey = process.env.PIWIK_KEY as string;
+  
+  useEffect(() => {
+    async function initPiwik() {
+      try {
+        console.log("Piwik initialized successfully");
+      } catch (error) {
+        console.error("Error initializing Piwik", error);
+      }
+    }
+    initPiwik()
+  }, [piwikUrl, piwikKey]);
 
   useEffect(() => {
     if (loaded) {
